@@ -1,7 +1,7 @@
 const router = require("express").Router()
-const {userpage} = require("../controllers/users")
+const {updateuser} = require("../controllers/users")
 
 
-router.get("/",userpage)
+router.put("/:id",updateuser)
 
 module.exports=router
