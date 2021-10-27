@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
   password:{type:String,required:true,min:6},
   profilePicture:{type:String,default:""},
   coverPicture:{type:String,default:""},
-  follower:{type:Array,default:[]},
+  followers:{type:Array,default:[]},
   followings:{type:Array,default:[]},
   isAdmin:{type:Boolean,default:false}
 },
