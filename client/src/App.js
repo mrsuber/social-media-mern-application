@@ -1,8 +1,8 @@
-import {Homepage} from "./pages"
+import {Homepage,Profile} from "./pages"
 function App() {
   return (
     <div >
-    <Homepage />
+    <Profile />
     </div>
   );
 }

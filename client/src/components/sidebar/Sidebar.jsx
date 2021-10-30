@@ -63,8 +63,8 @@ const Sidebar = () => {
           <CloseFriend key={u.id} user={u}/>
         ))}
 
-
         </ul>
+        
       </div>
     </div>
   )
