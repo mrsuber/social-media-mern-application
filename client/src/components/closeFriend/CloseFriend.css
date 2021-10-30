@@ -1,0 +1,17 @@
+.social__sidebarFriendList{
+  padding: 0;margin: 0;list-style: none;
+}
+
+.social__sidebarFriend{
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.social__sidebarFriendImg{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
