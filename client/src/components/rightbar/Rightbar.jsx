@@ -2,12 +2,11 @@ import React from 'react'
 import './Rightbar.css'
 import img from '../../images/gift.png'
 import img1 from '../../images/ad.png'
-import img2 from '../../images/me.webp'
 import {Users} from "../../data/data"
 import {Online} from '../../components'
 
 
-const Rightbar = ({Profile}) => {
+const Rightbar = ({profile}) => {
   const HomeRightbar = ()=>{
     return(
       <>
@@ -90,7 +89,7 @@ const Rightbar = ({Profile}) => {
   return (
     <div className="social__rightbar">
       <div className="social__rightbarWrapper">
-        <ProfileRightbar/>
+        {profile ? <ProfileRightbar/> : <HomeRightbar/> }
       </div>
 
     </div>

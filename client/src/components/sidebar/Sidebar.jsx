@@ -1,7 +1,6 @@
 import React from 'react'
 import './Sidebar.css'
 import {Chat,RssFeed,PlayCircleFilledOutlined,HelpOutline,WorkOutline,Event,School,Bookmark,Group} from '@material-ui/icons'
-import img from  '../../images/me.webp'
 import {Users} from "../../data/data"
 
 import {CloseFriend} from '../../components'
@@ -64,7 +63,7 @@ const Sidebar = () => {
         ))}
 
         </ul>
-        
+
       </div>
     </div>
   )

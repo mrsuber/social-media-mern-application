@@ -22,7 +22,7 @@ const Profile = () => {
     </div>
     <div className="social__profileRightBottom">
     <Feed/>
-    <Rightbar Profile/>
+    <Rightbar profile/>
     </div>
 
     </div>
