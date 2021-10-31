@@ -1,12 +1,15 @@
 import {Search,Person,Chat, Notifications} from '@material-ui/icons'
 import avatar from '../../images/me.webp'
 import './Topbar.css'
+import {Link} from 'react-router-dom'
 
 const Topbar = () => {
   return (
     <div className="social__topbarContainer">
     <div className="social__topbarLeft">
+    <Link to="/" className="social__link">
       <span className="social__logo">MSBsocial</span>
+      </Link>
     </div>
     <div className="social__topbarCenter">
       <div className="social__searchbar">

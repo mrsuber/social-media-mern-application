@@ -1,7 +1,9 @@
 import React from 'react'
 import './Sidebar.css'
 import {Chat,RssFeed,PlayCircleFilledOutlined,HelpOutline,WorkOutline,Event,School,Bookmark,Group} from '@material-ui/icons'
-import img from  '../../images/me.webp'
+import {Users} from "../../data/data"
+
+import {CloseFriend} from '../../components'
 const Sidebar = () => {
   return (
     <div className="social__sidebar">
@@ -56,26 +58,12 @@ const Sidebar = () => {
         <button className="social__sidebarButton">Show More</button>
         <hr className="social__sidebareHr" />
         <ul className="social__sidebarFriendList">
-            <li className="social__sidebarFriend">
-                <img className="social__sidebarFriendImg" src={img} alt=""/>
-                <span className="social__sidebarFriendName">Jane Doe</span>
-            </li>
+        {Users.map(u=>(
+          <CloseFriend key={u.id} user={u}/>
+        ))}
 
-            <li className="social__sidebarFriend">
-                <img className="social__sidebarFriendImg" src={img} alt=""/>
-                <span className="social__sidebarFriendName">Jane Doe</span>
-            </li>
-
-            <li className="social__sidebarFriend">
-                <img className="social__sidebarFriendImg" src={img} alt=""/>
-                <span className="social__sidebarFriendName">Jane Doe</span>
-            </li>
-
-            <li className="social__sidebarFriend">
-                <img className="social__sidebarFriendImg" src={img} alt=""/>
-                <span className="social__sidebarFriendName">Jane Doe</span>
-            </li>
         </ul>
+
       </div>
     </div>
   )
