@@ -89,3 +89,8 @@
   object-fit: cover;
   cursor: pointer;
 }
+
+.social__link{
+  text-decoration: none;
+  color: inherit;
+}
