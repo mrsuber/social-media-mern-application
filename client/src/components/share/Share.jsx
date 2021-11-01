@@ -1,9 +1,9 @@
 import React,{useContext,useRef,useState} from 'react'
 import './Share.css'
 import img from '../../images/me.webp'
-import {PermMedia,Label,Room,EmojiEmotions} from "@material-ui/icons"
+import {PermMedia,Label,Room,EmojiEmotions,Cancel} from "@material-ui/icons"
 import {AuthContext} from "../../context/AuthContext"
-
+import axios from "axios"
 
 const Share = () => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
@@ -11,6 +11,40 @@ const Share = () => {
   const {user} = useContext(AuthContext)
   const desc = useRef()
   const [file,setFile]=useState(null)
+  const submitHandler = async (e) =>{
+    e.preventDefault()
+    const newPost = {
+      userId:user._id,
+      desc:desc.current.value
+    }
+    if(file){
+      const data = new FormData();
+      const fileName = Date.now() + file.name;
+      data.append("file",file)
+      // data.append("name",fileName)
+
+
+      try{
+        const res = await axios.post("/upload",data)
+
+        newPost.img = res.data;
+      }catch(err){console.log(err)}
+      try{
+        await axios.post("/posts",newPost)
+        window.location.reload()
+      }catch(err){
+
+      }
+    }else{
+      try{
+        await axios.post("/posts",newPost)
+        window.location.reload()
+      }catch(err){
+
+      }
+    }
+
+  }
   return (
     <div className="social__share">
     <div className="social__shareWrapper">
@@ -20,8 +54,13 @@ const Share = () => {
        </div>
        <hr className="social__shareHr" />
 
-
-       <form className="social__shareBottom">
+       {file && (
+         <div className="sociail__shareImgContainer">
+          <img className="social__shareImg" src={URL.createObjectURL(file)} alt="" />
+          <Cancel className="social__shareCancelImg" onClick={()=>setFile(null)}/>
+         </div>
+       )}
+       <form className="social__shareBottom" onSubmit={submitHandler}>
         <div className="social__shareOptions">
           <label htmlFor="file" className="social__shareOption">
           <PermMedia htmlColor="tomato" className="social__shareIcon"/>
@@ -45,7 +84,7 @@ const Share = () => {
           </div>
         </div>
 
-        <button className="social__shareButton">Share</button>
+        <button className="social__shareButton" type="submit">Share</button>
        </form>
     </div>
 

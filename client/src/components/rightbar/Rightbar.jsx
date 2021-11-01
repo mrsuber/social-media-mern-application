@@ -3,11 +3,16 @@ import img from '../../images/gift.png'
 import img1 from '../../images/ad.png'
 import {Users} from "../../data/data"
 import {Online} from '../../components'
+import {useEffect,useState,useContext} from 'react'
+import axios from "axios"
+import {AuthContext} from '../../context/AuthContext'
+import {Add,Remove} from "@material-ui/icons"
 
 
 const Rightbar = ({user}) => {
-  const HomeRightbar = ()=>{
 
+
+  const HomeRightbar = ()=>{
     return(
       <>
       <div className="social__birthdayContainer">
@@ -30,10 +35,47 @@ const Rightbar = ({user}) => {
   }
 
   const ProfileRightbar=()=>{
+
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const [friends,setFriends]=useState([])
+    const {user:currentUser,dispatch} = useContext(AuthContext)
+    const [followed,setFollowed] = useState(currentUser.followings.includes(user?.id))
+    useEffect(()=>{
+      setFollowed(currentUser.followings.includes(user?.id))
+    },[currentUser,user.id])
+
+    useEffect(()=>{
+      const getFriends = async ()=>{
+        try{
+          const friendList = await axios.get("/users/friends/"+user._id)
+          setFriends(friendList.data)
+        }catch(err){console.log(err)}
+      }
+      getFriends()
+    },[user._id])
+
+    const handleClick = async () =>{
+      try{
+        if(followed){
+          await axios.put("/users/"+user._id+"/unfollow",{userId:currentUser._id})
+          dispatch({type:"UNFOLLOW",payload:user._id})
+        }else{
+          await axios.put("/users/"+user._id+"/follow",{userId:currentUser._id})
+            dispatch({type:"FOLLOW",payload:user._id})
+        }
+      }catch(err){console.log(err)}
+      setFollowed(!followed)
+    }
 
     return(
       <>
+      {user.username !== currentUser.username && (
+        <button className="social__rightbarfollowButton" onClick={handleClick}>
+          {followed?"Unfollow" : "Follow"}
+          {followed?<Remove/> : <Add/>}
+
+        </button>
+      )}
         <h4 className="social__rightbarTitle">User Information</h4>
         <div className="social__rightbarInfo">
           <div className="social__rightbarInfoItem">
@@ -54,35 +96,20 @@ const Rightbar = ({user}) => {
 
           <h4 className="social__rightbarTitle">User Friends</h4>
           <div className="social__rightbarFollowings">
-            <div className="social__rightbarFollowing">
-              <img src={`${PF}person/1.jpeg`} alt="" className="social__rightbareFollowingImg"/>
-              <span className="social__rightbarFollowingName">Jhon Doe</span>
-              </div>
-
+            {friends.map(friend=>(
               <div className="social__rightbarFollowing">
-                <img src={`${PF}person/2.jpeg`} alt="" className="social__rightbareFollowingImg"/>
-                <span className="social__rightbarFollowingName">Jhon Doe</span>
+                <img src={friend.profilePicture
+                          ? PF+friend.profilePicture
+                          : PF+"noAvatar.png"
+                        }
+                         alt=""
+                         className="social__rightbareFollowingImg"/>
+                <span className="social__rightbarFollowingName">{friend.username}</span>
                 </div>
+            ))}
 
-                <div className="social__rightbarFollowing">
-                  <img src={`${PF}person/3.jpeg`} alt="" className="social__rightbareFollowingImg"/>
-                  <span className="social__rightbarFollowingName">Jhon Doe</span>
-                  </div>
 
-                  <div className="social__rightbarFollowing">
-                    <img src={`${PF}person/4.jpeg`} alt="" className="social__rightbareFollowingImg"/>
-                    <span className="social__rightbarFollowingName">Jhon Doe</span>
-                    </div>
 
-                    <div className="social__rightbarFollowing">
-                      <img src={`${PF}person/5.jpeg`} alt="" className="social__rightbareFollowingImg"/>
-                      <span className="social__rightbarFollowingName">Jhon Doe</span>
-                      </div>
-
-                      <div className="social__rightbarFollowing">
-                        <img src={`${PF}person/6.jpeg`} alt="" className="social__rightbareFollowingImg"/>
-                        <span className="social__rightbarFollowingName">Jhon Doe</span>
-                        </div>
           </div>
 
       </>
