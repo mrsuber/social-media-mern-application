@@ -61,6 +61,12 @@
   font-weight: 500;
   cursor: pointer;
 }
+.social__loginButton:focus{
+   outline: none;
+}
+.social__loginButton:disabled{
+  cursor: not-allowed;
+}
 .social__loginForgot{
   text-align: center;
   color: #1775ee;
