@@ -26,8 +26,8 @@ const Profile = () => {
     <div className="social__profileRight">
     <div className="social__profileRightTop">
     <div className="social__profileCover">
-    <img className="social__profileCoverImg" src={user.coverPicture || PF+"noCover.jpg"} alt=""/>
-    <img className="social__profileCoverUserImage" src={user.profilePicture || PF+"noAvatar.png"} alt=""/>
+    <img className="social__profileCoverImg" src={user.coverPicture ? PF+user.coverPicture : PF+"noCover.jpg"} alt=""/>
+    <img className="social__profileCoverUserImage" src={user.profilePicture? PF+user.profilePicture : PF+"noAvatar.png"} alt=""/>
 
     </div>
     <div className="social__profileInfo">
